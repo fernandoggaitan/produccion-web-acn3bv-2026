@@ -19,4 +19,9 @@ class Course extends Model
         'visible'
     ];
 
+    public function price_format():string
+    {
+        return number_format($this->price, 2, ',', '.');
+    }
+
 }

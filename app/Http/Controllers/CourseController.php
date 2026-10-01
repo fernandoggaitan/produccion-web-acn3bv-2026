@@ -13,10 +13,15 @@ class CourseController extends Controller
      */
     public function index()
     {
+        //Se comunica con el modelo.
         $courses = Course::select( ['id', 'title', 'price'] )
             ->orderBy('title')
-            ->get();
-        return $courses;
+            ->paginate(20);
+        //Renderiza una vista.
+        return view('courses.index', [
+            'title' => 'Lista de cursos',
+            'courses' => $courses
+        ]);
     }
 
     /**
