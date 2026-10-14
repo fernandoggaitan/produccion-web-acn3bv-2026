@@ -22,6 +22,7 @@ Route::get('courses/create', [
     'create'
 ])->name('courses.create');
 
+//Agregar curso nuevo.
 Route::post('courses', [
     CourseController::class,
     'store'
@@ -37,10 +38,17 @@ Route::get('/courses/{course}/edit', [
     'edit'
 ])->name('courses.edit');
 
+//Modificar un curso.
 Route::put('/courses/{course}', [
     CourseController::class,
     'update'
 ])->name('courses.update');
+
+//Eliminar curso
+Route::delete('/courses/{course}', [
+    CourseController::class,
+    'destroy'
+])->name('courses.destroy');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

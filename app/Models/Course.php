@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
@@ -22,6 +23,11 @@ class Course extends Model
     public function price_format():string
     {
         return number_format($this->price, 2, ',', '.');
+    }
+
+    public function comments():HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

@@ -5,22 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $search = $request->search;
+
         //Se comunica con el modelo.
         $courses = Course::select( ['id', 'title', 'price'] )
+            ->where('visible', true)
+            ->when($search, fn(Builder $query) => 
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+            )
             ->orderBy('id', 'desc')
             ->paginate(20);
         //Renderiza una vista.
         return view('courses.index', [
             'title' => 'Lista de cursos',
-            'courses' => $courses
+            'courses' => $courses,
+            'search' => $search
         ]);
     }
 
@@ -62,7 +72,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return $course;
+        return view('courses.show', [
+            'course' => $course
+        ]);
     }
 
     /**
@@ -104,6 +116,16 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+
+        //$course->delete();
+        $course->update([
+            'visible' => false
+        ]);
+
+        return redirect()
+            ->route('courses.index')
+            ->with('status', 'El curso se eliminó correctamente');
+
     }
+
 }
