@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\CourseController;
+use App\Http\Middleware\EnsureUserHasRole;
 
 use function PHPUnit\TestFixture\func;
 
@@ -12,6 +13,15 @@ Route::get('/', function () {
 })->name('home');
 
 //Lista de cursos.
+
+Route::resource('courses', CourseController::class)
+    ->middleware([
+        'auth', 
+        'verified',
+        EnsureUserHasRole::class.':Admin'
+    ]);
+
+/*
 Route::get('courses', [
     CourseController::class,
     'index'
@@ -49,6 +59,7 @@ Route::delete('/courses/{course}', [
     CourseController::class,
     'destroy'
 ])->name('courses.destroy');
+*/
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
