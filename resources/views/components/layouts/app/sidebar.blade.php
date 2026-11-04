@@ -13,10 +13,10 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('nav.dashaboard') }}</flux:navlist.item>
                     @if( auth()->user()->hasRole('Admin') )
-                        <flux:navlist.item icon="pencil" :href="route('courses.index')" :current="request()->routeIs('courses.index')" wire:navigate>{{ __('Cursos') }}</flux:navlist.item>
-                        <flux:navlist.item icon="list-bullet" :href="route('tasks')" :current="request()->routeIs('tasks')" wire:navigate>{{ __('Tareas') }}</flux:navlist.item>
+                        <flux:navlist.item icon="pencil" :href="route('courses.index')" :current="request()->routeIs('courses.index')" wire:navigate>{{ __('nav.courses') }}</flux:navlist.item>
+                        <flux:navlist.item icon="list-bullet" :href="route('tasks')" :current="request()->routeIs('tasks')" wire:navigate>{{ __('nav.tasks') }}</flux:navlist.item>
                     @endif
                 </flux:navlist.group>
             </flux:navlist>
