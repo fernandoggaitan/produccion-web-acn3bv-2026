@@ -11,7 +11,7 @@
     @endif
 
 
-    <form action="{{ route('courses.store') }}" method="post">
+    <form action="{{ route('courses.store') }}" method="post" class="flex flex-col gap-6">
         
         @csrf
 
@@ -36,8 +36,10 @@
             :label="__('Descripción')"
             placeholder="Ingrese la descripción del curso"
             class="mb-3">{{ old('description') }}</flux:textarea>
-        <x-btn-submit> Agregar </x-btn-submit>
-        <x-enlace href="{{ route('courses.index') }}"> Volver a cursos </x-enlace>
+        <div class="flex gap-1">
+            <x-btn-submit> Agregar </x-btn-submit>
+            <x-enlace href="{{ route('courses.index') }}"> Volver a cursos </x-enlace>
+        </div>
     </form>
 
 </x-layouts.app>
