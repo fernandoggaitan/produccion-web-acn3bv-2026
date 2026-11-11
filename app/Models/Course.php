@@ -17,7 +17,8 @@ class Course extends Model
         'title',
         'price',
         'description',
-        'visible'
+        'visible',
+        'image'
     ];
 
     public function price_format():string
